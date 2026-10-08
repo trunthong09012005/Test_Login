@@ -150,3 +150,8 @@ def test_tc23_protected_page_redirects_anonymous_user(browser, settings):
     WebDriverWait(browser.driver, 15).until(EC.url_contains("/Login"))
     assert "/Login" in browser.driver.current_url
 
+@pytest.mark.security
+def test_tc24_sql_injection_is_rejected(login):
+    login.fill("' OR '1'='1", "arbitrary-password").submit()
+    assert login.is_loaded()
+
