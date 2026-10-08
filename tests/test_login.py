@@ -76,3 +76,8 @@ def test_tc11_leading_whitespace_in_password(login, settings):
     login.fill(settings.username, f" {settings.password}").submit()
     assert_authentication_rejected(login)
 
+@pytest.mark.credentials
+def test_tc12_trailing_whitespace_in_password(login, settings):
+    login.fill(settings.username, f"{settings.password} ").submit()
+    assert_authentication_rejected(login)
+
