@@ -155,3 +155,9 @@ def test_tc24_sql_injection_is_rejected(login):
     login.fill("' OR '1'='1", "arbitrary-password").submit()
     assert login.is_loaded()
 
+@pytest.mark.security
+def test_tc25_script_injection_is_not_executed(login):
+    login.fill("<script>alert(1)</script>", "arbitrary-password").submit()
+    assert login.is_loaded()
+    assert not login.has_alert()
+
