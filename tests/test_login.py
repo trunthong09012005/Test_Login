@@ -57,3 +57,7 @@ def test_tc07_empty_username_and_password(login):
     login.fill("", "").submit()
     assert "chưa nhập" in login.error_text().lower()
 
+def test_tc08_wrong_username_and_password(login):
+    login.fill("abcxyz", "abc123").submit()
+    assert_authentication_rejected(login)
+
