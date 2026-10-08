@@ -21,3 +21,7 @@ def test_tc01_empty_username(login):
     login.fill("", "1256").submit()
     assert login.error_text() == "Bạn chưa nhập tên đăng nhập"
 
+def test_tc02_empty_password(login):
+    login.fill("sample-user", "").submit()
+    assert login.error_text() == "Bạn chưa nhập mật khẩu"
+
