@@ -103,3 +103,11 @@ def test_tc16_special_characters_in_password(login):
     login.fill("sample-user", "!@#$%^&*").submit()
     assert_authentication_rejected(login)
 
+def test_tc17_username_at_excessive_length(login, browser, settings):
+    long_username = "u" * 256
+    login.fill(long_username, "arbitrary-password")
+    accepted_length = login.username_length()
+    login.submit()
+    assert accepted_length <= 256
+    assert_handled_without_server_error(login, browser.driver, settings)
+
