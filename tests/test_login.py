@@ -119,3 +119,7 @@ def test_tc18_password_at_excessive_length(login, browser, settings):
     assert accepted_length <= 256
     assert_handled_without_server_error(login, browser.driver, settings)
 
+def test_tc19_password_is_masked(login):
+    login.fill("", "123456@utc")
+    assert login.password_type() == "password"
+
