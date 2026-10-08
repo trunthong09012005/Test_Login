@@ -123,3 +123,8 @@ def test_tc19_password_is_masked(login):
     login.fill("", "123456@utc")
     assert login.password_type() == "password"
 
+@pytest.mark.credentials
+def test_tc20_submit_login_with_enter(login, settings):
+    login.login(settings.username, settings.password, enter=True)
+    assert not login.is_loaded()
+
