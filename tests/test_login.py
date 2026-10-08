@@ -99,3 +99,7 @@ def test_tc15_special_characters_in_username(login):
     login.fill("@#$%^&*", "arbitrary-password").submit()
     assert_authentication_rejected(login)
 
+def test_tc16_special_characters_in_password(login):
+    login.fill("sample-user", "!@#$%^&*").submit()
+    assert_authentication_rejected(login)
+
