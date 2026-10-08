@@ -44,3 +44,12 @@ def test_tc05_remember_me_persists_after_browser_restart(login, browser, setting
     browser.driver.get(settings.protected_url)
     assert not LoginPage(browser.driver, settings).is_loaded()
 
+@pytest.mark.credentials
+@pytest.mark.session
+def test_tc06_without_remember_me_requires_login_after_restart(login, browser, settings):
+    login.login(settings.username, settings.password, remember=False)
+    assert not login.is_loaded()
+    browser.restart()
+    browser.driver.get(settings.protected_url)
+    assert LoginPage(browser.driver, settings).is_loaded()
+
