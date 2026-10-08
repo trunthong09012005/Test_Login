@@ -135,3 +135,13 @@ def test_tc21_five_consecutive_failed_logins(login, settings):
         login.fill(settings.username, f"wrong-password-{attempt}").submit()
         assert_authentication_rejected(login)
 
+@pytest.mark.credentials
+@pytest.mark.session
+def test_tc22_logout_after_successful_login(login, settings, browser):
+    home = login.login(settings.username, settings.password)
+    assert not login.is_loaded()
+    
+    assert home.any_visible((By.CSS_SELECTOR, settings.logout_css)), "Trang chủ phải có điều khiển Đăng xuất"
+    home.logout()
+    assert LoginPage(browser.driver, settings).is_loaded()
+
