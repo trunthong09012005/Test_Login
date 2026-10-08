@@ -145,3 +145,8 @@ def test_tc22_logout_after_successful_login(login, settings, browser):
     home.logout()
     assert LoginPage(browser.driver, settings).is_loaded()
 
+def test_tc23_protected_page_redirects_anonymous_user(browser, settings):
+    browser.driver.get(settings.protected_url)
+    WebDriverWait(browser.driver, 15).until(EC.url_contains("/Login"))
+    assert "/Login" in browser.driver.current_url
+
