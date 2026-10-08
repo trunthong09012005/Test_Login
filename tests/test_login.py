@@ -53,3 +53,7 @@ def test_tc06_without_remember_me_requires_login_after_restart(login, browser, s
     browser.driver.get(settings.protected_url)
     assert LoginPage(browser.driver, settings).is_loaded()
 
+def test_tc07_empty_username_and_password(login):
+    login.fill("", "").submit()
+    assert "chưa nhập" in login.error_text().lower()
+
