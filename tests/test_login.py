@@ -95,3 +95,7 @@ def test_tc14_wrong_password_case(login, settings):
     login.fill(settings.username, changed_case).submit()
     assert_authentication_rejected(login)
 
+def test_tc15_special_characters_in_username(login):
+    login.fill("@#$%^&*", "arbitrary-password").submit()
+    assert_authentication_rejected(login)
+
