@@ -81,3 +81,8 @@ def test_tc12_trailing_whitespace_in_password(login, settings):
     login.fill(settings.username, f"{settings.password} ").submit()
     assert_authentication_rejected(login)
 
+@pytest.mark.credentials
+def test_tc13_uppercase_username(login, settings, browser):
+    login.fill(settings.username.upper(), settings.password).submit()
+    assert_handled_without_server_error(login, browser.driver, settings)
+
