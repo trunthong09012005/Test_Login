@@ -25,3 +25,8 @@ def test_tc02_empty_password(login):
     login.fill("sample-user", "").submit()
     assert login.error_text() == "Bạn chưa nhập mật khẩu"
 
+@pytest.mark.credentials
+def test_tc03_valid_username_wrong_password(login, settings):
+    login.fill(settings.username, "utc@235").submit()
+    assert_authentication_rejected(login)
+
