@@ -161,3 +161,16 @@ def test_tc25_script_injection_is_not_executed(login):
     assert login.is_loaded()
     assert not login.has_alert()
 
+@pytest.mark.credentials
+@pytest.mark.session
+def test_tc26_back_after_logout_does_not_restore_session(login, settings, browser):
+    home = login.login(settings.username, settings.password)
+    assert not login.is_loaded()
+    home.logout()
+    
+    browser.driver.back()
+    browser.driver.refresh()
+    
+    WebDriverWait(browser.driver, 15).until(EC.url_contains("/Login"))
+    assert "/Login" in browser.driver.current_url
+
