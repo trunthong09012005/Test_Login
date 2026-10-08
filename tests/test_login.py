@@ -30,3 +30,8 @@ def test_tc03_valid_username_wrong_password(login, settings):
     login.fill(settings.username, "utc@235").submit()
     assert_authentication_rejected(login)
 
+@pytest.mark.credentials
+def test_tc04_wrong_username_valid_password(login, settings):
+    login.fill(f"invalid-{uuid.uuid4()}", settings.password).submit()
+    assert_authentication_rejected(login)
+
