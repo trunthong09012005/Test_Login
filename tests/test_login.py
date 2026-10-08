@@ -111,3 +111,11 @@ def test_tc17_username_at_excessive_length(login, browser, settings):
     assert accepted_length <= 256
     assert_handled_without_server_error(login, browser.driver, settings)
 
+def test_tc18_password_at_excessive_length(login, browser, settings):
+    long_password = "p" * 256
+    login.fill("sample-user", long_password)
+    accepted_length = login.password_length()
+    login.submit()
+    assert accepted_length <= 256
+    assert_handled_without_server_error(login, browser.driver, settings)
+
