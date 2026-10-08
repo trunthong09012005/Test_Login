@@ -66,3 +66,8 @@ def test_tc09_leading_whitespace_in_username(login, settings, browser):
     login.fill(f" {settings.username}", settings.password).submit()
     assert_handled_without_server_error(login, browser.driver, settings)
 
+@pytest.mark.credentials
+def test_tc10_trailing_whitespace_in_username(login, settings, browser):
+    login.fill(f"{settings.username} ", settings.password).submit()
+    assert_handled_without_server_error(login, browser.driver, settings)
+
