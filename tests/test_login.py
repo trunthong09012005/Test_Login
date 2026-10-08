@@ -128,3 +128,10 @@ def test_tc20_submit_login_with_enter(login, settings):
     login.login(settings.username, settings.password, enter=True)
     assert not login.is_loaded()
 
+@pytest.mark.credentials
+@pytest.mark.rate_limit
+def test_tc21_five_consecutive_failed_logins(login, settings):
+    for attempt in range(1, 6):
+        login.fill(settings.username, f"wrong-password-{attempt}").submit()
+        assert_authentication_rejected(login)
+
