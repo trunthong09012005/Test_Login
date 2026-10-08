@@ -35,3 +35,12 @@ def test_tc04_wrong_username_valid_password(login, settings):
     login.fill(f"invalid-{uuid.uuid4()}", settings.password).submit()
     assert_authentication_rejected(login)
 
+@pytest.mark.credentials
+@pytest.mark.session
+def test_tc05_remember_me_persists_after_browser_restart(login, browser, settings):
+    login.login(settings.username, settings.password, remember=True)
+    assert not login.is_loaded()
+    browser.restart()
+    browser.driver.get(settings.protected_url)
+    assert not LoginPage(browser.driver, settings).is_loaded()
+
