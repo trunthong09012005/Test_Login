@@ -86,3 +86,12 @@ def test_tc13_uppercase_username(login, settings, browser):
     login.fill(settings.username.upper(), settings.password).submit()
     assert_handled_without_server_error(login, browser.driver, settings)
 
+@pytest.mark.credentials
+def test_tc14_wrong_password_case(login, settings):
+    original_password = settings.password
+    changed_case = original_password.upper()
+    if changed_case == original_password:
+        pytest.skip("Mật khẩu không có chữ để đổi hoa/thường")
+    login.fill(settings.username, changed_case).submit()
+    assert_authentication_rejected(login)
+
