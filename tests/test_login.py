@@ -17,3 +17,7 @@ def assert_handled_without_server_error(page: LoginPage, driver, settings):
     usable_result = page.is_loaded() or HomePage(driver, settings).is_authenticated()
     assert usable_result
 
+def test_tc01_empty_username(login):
+    login.fill("", "1256").submit()
+    assert login.error_text() == "Bạn chưa nhập tên đăng nhập"
+
