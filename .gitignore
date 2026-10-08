@@ -1,0 +1,12 @@
+.gradle/
+build/
+.idea/
+*.iml
+*.log
+.env
+__pycache__/
+.pytest_cache/
+reports/
+chromedriver.exe
+edgedriver.exe
+*.zip
